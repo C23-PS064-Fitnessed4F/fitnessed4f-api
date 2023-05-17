@@ -22,4 +22,4 @@ jobs:
 
       - id: deploy
         run: >
-          gcloud functions deploy ${{ vars.FUNCTION_NAME }} --region=${{ vars.FUNCTION_REGION }} --source="./functions" --trigger-http
+          gcloud functions deploy ${{ vars.FUNCTION_NAME }} --region=${{ vars.FUNCTION_REGION }} --source="./functions" --trigger-http --runtime=nodejs18
