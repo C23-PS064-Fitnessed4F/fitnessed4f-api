@@ -12,10 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm ci
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - uses: w9jds/firebase-action@master
         with:
           args: deploy --only functions
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FITNESSED4F }}'
-          channelId: live
-          projectId: fitnessed4f
+        env:
+          GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FITNESSED4F }}'
+          PROJECT_ID: fitnessed4f
