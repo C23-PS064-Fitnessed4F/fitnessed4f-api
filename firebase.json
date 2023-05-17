@@ -10,7 +10,7 @@
   "functions": [
     {
       "source": "functions",
-      "codebase": "default",
+      "codebase": "${{ vars.FUNCTION_NAME }}",
       "ignore": [
         "node_modules",
         ".git",
