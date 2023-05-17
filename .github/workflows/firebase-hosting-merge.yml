@@ -11,10 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: cd functions/ && npm ci
-      - uses: w9jds/firebase-action@master
+
+      - id: auth
+        uses: google-github-actions/auth@v1
         with:
-          args: deploy --only functions
-        env:
-          GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FITNESSED4F }}'
-          PROJECT_ID: fitnessed4f
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FITNESSED4F }}'
+
+      - id: setup
+        uses: google-github-actions/setup-gcloud@v1
+
+      - id: deploy
+        run: >
+          gcloud functions deploy --source=. --gen2
