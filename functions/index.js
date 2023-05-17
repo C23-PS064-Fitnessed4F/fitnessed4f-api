@@ -11,4 +11,4 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-export const ${{ vars.FUNCTION_NAME }} = functions.https.onRequest(app);
+export const test = functions.https.onRequest(app);
