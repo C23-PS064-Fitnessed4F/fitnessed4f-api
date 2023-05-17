@@ -22,4 +22,4 @@ jobs:
 
       - id: deploy
         run: >
-          gcloud functions deploy ${{ variables.FUNCTION_NAME }} --region=${{ variables.FUNCTION_REGION }} --source="./functions"
+          gcloud functions deploy $FUNCTION_NAME --region=$FUNCTION_REGION --source="./functions"
