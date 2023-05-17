@@ -22,4 +22,4 @@ jobs:
 
       - id: deploy
         run: >
-          cd functions && gcloud functions deploy ${{ vars.FUNCTION_NAME }} --region=${{ vars.FUNCTION_REGION }} --source=. --trigger-http --runtime=nodejs18 --no-allow-unauthenticated
+          cd functions && gcloud functions deploy ${{ vars.FUNCTION_NAME }} --region=${{ vars.FUNCTION_REGION }} --source=. --trigger-http --runtime=nodejs18 --allow-unauthenticated
