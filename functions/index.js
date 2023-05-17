@@ -11,4 +11,4 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-exports.app = functions.https.onRequest(app);
+export default functions.https.onRequest(app);
