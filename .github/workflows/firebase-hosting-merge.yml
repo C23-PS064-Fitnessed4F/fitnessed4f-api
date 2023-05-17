@@ -22,4 +22,4 @@ jobs:
 
       - id: deploy
         run: >
-          gcloud functions deploy default --region="us-central1" --source=. --gen2
+          gcloud functions deploy default --region="us-central1" --source=.
