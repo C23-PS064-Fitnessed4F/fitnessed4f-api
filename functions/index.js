@@ -10,8 +10,8 @@ app.get('/', (req, res) => {
   res.send('Nothing to see here');
 })
 
-app.post('/signup', (req, res) => {
-  const r = signup(req, res)
+app.post('/signup', async (req, res) => {
+  const r = await signup(req, res)
   res.status(r[0]).send(r[1]);
 })
 
