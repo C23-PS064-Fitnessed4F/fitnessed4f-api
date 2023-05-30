@@ -4,11 +4,16 @@ import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
 
 const signup = async (req, res) => {
   try {
-    let response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCgHBx142-JXJv9cvq08Nl5u2TgnCUGkMY/', {
+    const data = JSON.stringify({
       email: req.body.email,
       password: req.body.password,
       returnSecureToken: true
     });
+    let response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCgHBx142-JXJv9cvq08Nl5u2TgnCUGkMY',
+      data,
+      {
+        headers: { 'Content-Type': 'application/json' }
+      });
 
     // Connect to firestore
     initializeApp();
