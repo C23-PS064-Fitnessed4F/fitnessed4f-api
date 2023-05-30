@@ -20,10 +20,10 @@ const signup = async (req, res) => {
       height: req.height,
       weight: req.height,
       preferences: {
-        workout_per_week: req.workout_per_week,
-        type_pref: req.type_pref,
-        train_duration: req.train_duration,
-        train_level: req.train_level
+        workout_per_week: 0,
+        type_pref: 0,
+        train_duration: 0,
+        train_level: 0
       }
     });
     return ["200", {
