@@ -5,8 +5,8 @@ import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
 const signup = async (req, res) => {
   try {
     let response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCgHBx142-JXJv9cvq08Nl5u2TgnCUGkMY/', {
-      email: req.email,
-      password: req.pass,
+      email: req.body.email,
+      password: req.body.pass,
       returnSecureToken: true
     });
 
@@ -16,9 +16,9 @@ const signup = async (req, res) => {
 
     const docRef = db.collection('users').doc(response.data.localId);
     await docRef.set({
-      username: req.username,
-      height: req.height,
-      weight: req.height,
+      username: req.body.username,
+      height: req.body.height,
+      weight: req.body.height,
       preferences: {
         workout_per_week: 0,
         type_pref: 0,
