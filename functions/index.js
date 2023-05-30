@@ -4,6 +4,8 @@ import signup from "./auth/signup.js";
 const app = express()
 const port = 3000
 
+app.use(express.json())
+
 app.get('/', (req, res) => {
   res.send('Nothing to see here');
 })
