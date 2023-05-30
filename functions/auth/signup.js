@@ -31,13 +31,16 @@ const signup = async (req, res) => {
         train_level: 0
       }
     });
-    return ["200", {
+    return [200, {
       idToken: response.data.idToken,
       refreshToken: response.data.refreshToken
     }]
 
   } catch (e) {
     console.error(e);
+    return [400, {
+      error: e
+    }]
   }
 };
 
