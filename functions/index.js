@@ -1,14 +1,20 @@
 import functions from 'firebase-functions';
 import express from 'express';
+import signup from "./auth/signup.js";
 const app = express()
 const port = 3000
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Nothing to see here');
+})
+
+app.post('/signup', (req, res) => {
+  const r = signup(req, res)
+  res.status(r[0]).send(r[1]);
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening on port ${port}`);
 })
 
-export const test = functions.https.onRequest(app);
+export const fitnessed = functions.https.onRequest(app);
