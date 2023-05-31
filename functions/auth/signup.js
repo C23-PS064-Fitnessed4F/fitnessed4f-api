@@ -20,8 +20,8 @@ const signup = async (req) => {
     const docRef = db.collection('users').doc(response.data.localId);
     await docRef.set({
       username: req.body.username,
-      height: req.body.height,
-      weight: req.body.height,
+      height: parseInt(req.body.height),
+      weight: parseInt(req.body.height),
       preferences: {
         workout_per_week: 0,
         type_pref: 0,
