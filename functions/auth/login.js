@@ -9,7 +9,7 @@ const login = async (req) => {
       password: req.body.password,
       returnSecureToken: true
     });
-    let response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCgHBx142-JXJv9cvq08Nl5u2TgnCUGkMY',
+    let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.API_KEY}`,
       data,
       {
         headers: { 'Content-Type': 'application/json' }
