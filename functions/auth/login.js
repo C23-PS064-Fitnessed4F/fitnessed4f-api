@@ -24,7 +24,7 @@ const login = async (req) => {
     return [200, {
             idToken: response.data.idToken,
             refreshToken: response.data.refreshToken,
-            user: user
+            user : user.data()
     }]
   } catch (e) {
     console.error(e);
