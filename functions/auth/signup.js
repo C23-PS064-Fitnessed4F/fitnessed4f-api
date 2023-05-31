@@ -2,7 +2,7 @@ import axios from "axios";
 import { initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 
-const signup = async (req, res) => {
+const signup = async (req) => {
   try {
     const data = JSON.stringify({
       email: req.body.email,
