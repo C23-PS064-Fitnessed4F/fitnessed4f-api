@@ -1,5 +1,5 @@
 import axios from "axios";
-import { initializeApp } from 'firebase-admin/app';
+
 import { getFirestore } from 'firebase-admin/firestore';
 
 const signup = async (req) => {
@@ -16,7 +16,6 @@ const signup = async (req) => {
       });
 
     // Connect to firestore
-    initializeApp();
     const db = getFirestore();
 
     const docRef = db.collection('users').doc(response.data.localId);

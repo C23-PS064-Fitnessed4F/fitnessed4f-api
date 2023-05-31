@@ -1,9 +1,15 @@
 import functions from 'firebase-functions';
+import { initializeApp } from 'firebase-admin/app';
 import express from 'express';
 import signup from "./auth/signup.js";
 import login from "./auth/login.js";
+
+// Initialize express
 const app = express()
 const port = 3000
+
+// Initialize firebase-admin
+initializeApp();
 
 app.use(express.json())
 
