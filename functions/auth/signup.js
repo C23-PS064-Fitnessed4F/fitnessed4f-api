@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import { getFirestore } from 'firebase-admin/firestore';
 
 const signup = async (req) => {
