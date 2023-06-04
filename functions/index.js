@@ -32,3 +32,4 @@ app.listen(port, () => {
 })
 
 export const fitnessed = functions.https.onRequest(app);
+export const staging = functions.https.onRequest(app);
