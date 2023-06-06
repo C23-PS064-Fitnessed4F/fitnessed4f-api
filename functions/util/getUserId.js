@@ -3,7 +3,7 @@ import axios from "axios";
 const getUserId = async (req) => {
   try {
     const data = JSON.stringify({
-      idToken: req.body.idToken
+      idToken: req.get('authorization')
     });
     let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${process.env.API_KEY}`,
       data,
