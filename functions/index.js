@@ -39,5 +39,6 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 })
 
+
 export const fitnessed = functions.https.onRequest(app);
 export const staging = functions.https.onRequest(app);
