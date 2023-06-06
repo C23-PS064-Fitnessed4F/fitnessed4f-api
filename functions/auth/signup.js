@@ -21,7 +21,7 @@ const signup = async (req) => {
     await docRef.set({
       username: req.body.username,
       height: parseInt(req.body.height),
-      weight: parseInt(req.body.height),
+      weight: parseInt(req.body.weight),
       preferences: {
         workout_per_week: 0,
         type_pref: 0,

@@ -1,16 +1,10 @@
-import axios from "axios";
+
 import { getFirestore } from 'firebase-admin/firestore';
-import getUserId from "../util/getUserId";
+import getUserId from "../util/getUserId.js";
 
 const update = async (req) => {
   try {
     const userId = await getUserId(req);
-    let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${process.env.API_KEY}`,
-      data,
-      {
-        headers: { 'Content-Type': 'application/json' }
-      });
-
     // Connect to firestore
     const db = getFirestore();
 
@@ -20,12 +14,12 @@ const update = async (req) => {
         weight : req.body.weight
     }).then(function() {
         console.log("user's height and weight updated");
-      });;
+    });
     return [200, {
-      idToken: response.data.idToken,
-      refreshToken: response.data.refreshToken
-    }]
-
+        status: "user's height and weight updated",
+        new_height : req.body.height,
+        new_weight : req.body.weight
+      }]
   } catch (e) {
     console.error(e);
     return [400, {

@@ -1,16 +1,10 @@
-import axios from "axios";
+
 import { getFirestore } from 'firebase-admin/firestore';
-import getUserId from "../util/getUserId";
+import getUserId from "../util/getUserId.js";
 
 const updatePref = async (req) => {
   try {
     const userId = await getUserId(req);
-    let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${process.env.API_KEY}`,
-      data,
-      {
-        headers: { 'Content-Type': 'application/json' }
-      });
-
     // Connect to firestore
     const db = getFirestore();
 
@@ -24,12 +18,16 @@ const updatePref = async (req) => {
       }
     }).then(function() {
         console.log("user's preferences updated");
-      });;
-    return [200, {
-      idToken: response.data.idToken,
-      refreshToken: response.data.refreshToken
-    }]
-
+      });
+      return [200, {
+        status: "user's preferences updated",
+        new_preferences: {
+          workout_per_week: req.body.workout_per_week,
+          type_pref: req.body.type_pref,
+          train_duration: req.body.train_duration,
+          train_level: req.body.train_level
+        }
+      }]
   } catch (e) {
     console.error(e);
     return [400, {
