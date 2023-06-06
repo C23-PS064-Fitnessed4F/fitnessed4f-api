@@ -41,7 +41,7 @@ app.post('/update', async (req, res) => {
   res.status(r[0]).send(r[1]);
 })
 
-app.post('/update=pref', async (req, res) => {
+app.post('/update-pref', async (req, res) => {
   const r = await updatePref(req)
   res.status(r[0]).send(r[1]);
 })
