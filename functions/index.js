@@ -30,7 +30,7 @@ app.post('/login', async (req, res) => {
   res.status(r[0]).send(r[1]);
 })
 
-app.post('/fetch', async (req, res) => {
+app.get('/fetch', async (req, res) => {
   const r = await fetch(req)
   res.status(r[0]).send(r[1]);
 })
