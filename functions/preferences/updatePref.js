@@ -3,9 +3,7 @@ import { getFirestore } from 'firebase-admin/firestore';
 
 const updatePref = async (req) => {
   try {
-    const data = JSON.stringify({
-      idToken: req.body.idToken,
-    });
+    const userId = await getUserId(req);
     let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${process.env.API_KEY}`,
       data,
       {
@@ -15,7 +13,7 @@ const updatePref = async (req) => {
     // Connect to firestore
     const db = getFirestore();
 
-    const docRef = db.collection('users').doc(response.data.users.localId);
+    const docRef = db.collection('users').doc(userId);
     await docRef.update({
       preferences: {
         workout_per_week: req.body.workout_per_week,
