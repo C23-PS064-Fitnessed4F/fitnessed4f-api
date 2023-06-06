@@ -2,7 +2,7 @@ import axios from "axios";
 import { getFirestore } from 'firebase-admin/firestore';
 import getUserId from "../util/getUserId";
 
-const updatePref = async (req) => {
+const update = async (req) => {
   try {
     const userId = await getUserId(req);
     let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${process.env.API_KEY}`,
@@ -16,14 +16,10 @@ const updatePref = async (req) => {
 
     const docRef = db.collection('users').doc(userId);
     await docRef.update({
-      preferences: {
-        workout_per_week: req.body.workout_per_week,
-        type_pref: req.body.type_pref,
-        train_duration: req.body.train_duration,
-        train_level: req.body.train_level
-      }
+        height : req.body.height,
+        weight : req.body.weight
     }).then(function() {
-        console.log("user's preferences updated");
+        console.log("user's height and weight updated");
       });;
     return [200, {
       idToken: response.data.idToken,
@@ -39,4 +35,4 @@ const updatePref = async (req) => {
 };
 
 
-export default updatePref;
+export default update;
