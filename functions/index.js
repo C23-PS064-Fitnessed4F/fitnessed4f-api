@@ -5,7 +5,8 @@ import 'dotenv/config'
 import signup from "./auth/signup.js";
 import login from "./auth/login.js";
 import fetch from "./fetch/fetch.js";
-
+import update from './preferences/updateHW.js';
+import updatePref from './preferences/updatePref.js';
 // Initialize express
 const app = express()
 const port = 3000
@@ -34,6 +35,17 @@ app.get('/fetch', async (req, res) => {
   const r = await fetch(req)
   res.status(r[0]).send(r[1]);
 })
+
+app.post('/update', async (req, res) => {
+  const r = await update(req)
+  res.status(r[0]).send(r[1]);
+})
+
+app.post('/update-pref', async (req, res) => {
+  const r = await updatePref(req)
+  res.status(r[0]).send(r[1]);
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
