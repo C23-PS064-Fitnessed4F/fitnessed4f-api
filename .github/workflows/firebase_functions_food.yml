@@ -23,4 +23,4 @@ jobs:
 
       - id: deploy
         run: >
-          cd functions/model/workout && gcloud functions deploy food-model --region=${{ vars.FUNCTION_REGION }} --entry-point=foodrec_model --source=. --trigger-http --runtime=python310 --allow-unauthenticated --memory=1024MB
+          cd functions/model/food_recommender && gcloud functions deploy food-model --region=${{ vars.FUNCTION_REGION }} --entry-point=foodrec_model --source=. --trigger-http --runtime=python310 --allow-unauthenticated --memory=1024MB
