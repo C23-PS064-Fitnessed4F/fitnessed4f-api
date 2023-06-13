@@ -21,6 +21,9 @@ def workout_model(request):
 
         train_level = np.zeros(3)
         train_level[data['train_level'] - 1] = 1
+        temp = train_level[1]
+        train_level[1] = train_level[2]  # Input isn't sorted (Beginner, Advanced, Intermediate)
+        train_level[2] = temp
 
         bodypart = np.zeros(17)
         bodypart[data['bodypart'] - 1] = 1
