@@ -54,3 +54,7 @@ def get_y():
 
 def get_y_df():
     return pd.read_csv('y_df.csv', delimiter=';')
+
+
+if __name__ == '__main__':
+    app.run()
