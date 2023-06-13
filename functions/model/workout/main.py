@@ -1,19 +1,17 @@
 from os import environ
 
 import tensorflow as tf
-from flask import Flask
-from flask import jsonify
-from flask import request
+import functions_framework
+import json
 
 from utils import *
 
 environ['CUDA_VISIBLE_DEVICES'] = ''
 environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
-app = Flask(__name__)
 
 
-@app.route("/", methods=['POST'])
-def workout_model():
+@functions_framework.http
+def workout_model(request):
     if request.method == 'POST':
         model = tf.keras.models.load_model('workout.h5')
         data = request.get_json()
@@ -40,10 +38,6 @@ def workout_model():
         index = np.where(y == near)
         final = y_df.iloc[index]['Title'].item()
 
-        return jsonify(
-            result=final
-        )
-
-
-if __name__ == '__main__':
-    app.run()
+        return json.dumps({
+            "result": final
+        })
