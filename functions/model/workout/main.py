@@ -7,6 +7,7 @@ import pandas as pd
 from os import environ
 
 environ['CUDA_VISIBLE_DEVICES'] = ''
+environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 app = Flask(__name__)
 
 
