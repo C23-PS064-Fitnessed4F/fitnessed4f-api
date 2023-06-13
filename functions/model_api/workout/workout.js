@@ -12,9 +12,9 @@ const workout = async (req) => {
     const docRef = db.collection('users').doc(userId);
     const user = await docRef.get();
 
-    if (0 in Object.keys(user.data().workout_preferences)) {
+    if (!Object.values(user.data().workout_preferences).every(item => item !== 0)) {
       return [400, {
-        error: "Workout preferences not configured yet"
+        error: "Workout preferences has not been configured yet"
       }]
     }
 
