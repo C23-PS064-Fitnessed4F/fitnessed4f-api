@@ -4,6 +4,9 @@ import json
 import dill
 import nltk
 nltk.download('punkt')
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_distances
+from nltk.tokenize import word_tokenize
 
 def convert_to_string(data):
     return f"{data['diet_type']} {data['cuisine_type']} {data['protein']} {data['carbs']} {data['fat']} {data['calories']}"
