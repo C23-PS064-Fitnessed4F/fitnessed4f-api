@@ -22,11 +22,19 @@ const signup = async (req) => {
       username: req.body.username,
       height: parseInt(req.body.height),
       weight: parseInt(req.body.weight),
-      preferences: {
-        workout_per_week: 0,
+      workout_preferences: {
         type_pref: 0,
-        train_duration: 0,
-        train_level: 0
+        train_level: 0,
+        bodypart: 0,
+        equipment: 0,
+      },
+      food_preferences: {
+        diet_type: 0,
+        cuisine_type: 0,
+        protein: 0,
+        carbs: 0,
+        fat: 0,
+        calories: 0,
       }
     });
     return [200, {
