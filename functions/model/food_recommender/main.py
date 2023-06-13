@@ -29,7 +29,6 @@ def foodrec_model(request):
             loaded_model = dill.load(dill_file)
         mainify(cosine_distances)
         mainify(word_tokenize)
-        mainify(CountVectorizer)
         data = request.get_json()
         data_input = convert_to_string(data)
         result = loaded_model.recommend(data_input)
