@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=['POST'])
-def workout():
+def workout_model():
     if request.method == 'POST':
         model = tf.keras.models.load_model('workout.h5')
         data = request.get_json()
