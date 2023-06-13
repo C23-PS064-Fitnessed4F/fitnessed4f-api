@@ -10,7 +10,8 @@ def convert_to_string(data):
 def foodrec_model(request):
   
     if request.method == 'POST':
-        loaded_model = dill.load('foodrec_model.pkl','rb')
+        with open('foodrec_model.pkl','rb') as dill_file:
+            loaded_model = dill.load(dill_file)
         data = request.get_json()
         data_input = convert_to_string(data)
         result = loaded_model.recommend(data_input)
