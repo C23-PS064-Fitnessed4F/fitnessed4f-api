@@ -2,6 +2,8 @@
 import functions_framework
 import json
 import dill
+import nltk
+nltk.download('punkt')
 
 def convert_to_string(data):
     return f"{data['diet_type']} {data['cuisine_type']} {data['protein']} {data['carbs']} {data['fat']} {data['calories']}"
