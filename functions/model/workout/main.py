@@ -1,10 +1,11 @@
-from flask import Flask
-from flask import request
-from flask import jsonify
-import tensorflow as tf
-import numpy as np
-import pandas as pd
 from os import environ
+
+import tensorflow as tf
+from flask import Flask
+from flask import jsonify
+from flask import request
+
+from utils import *
 
 environ['CUDA_VISIBLE_DEVICES'] = ''
 environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
@@ -42,21 +43,6 @@ def workout_model():
         return jsonify(
             result=final
         )
-
-
-def find_nearest(array, value):
-    array = np.asarray(array)
-    idx = (np.abs(array - value)).argmin()
-    return array[idx]
-
-
-def get_y():
-    with open('y.npy', 'rb') as f:
-        return np.load(f)
-
-
-def get_y_df():
-    return pd.read_csv('y_df.csv', delimiter=';')
 
 
 if __name__ == '__main__':
