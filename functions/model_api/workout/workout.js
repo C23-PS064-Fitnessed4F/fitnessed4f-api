@@ -13,7 +13,7 @@ const workout = async (req) => {
     const user = await docRef.get();
 
     let response = await axios.post('https://asia-southeast2-fitnessed4f.cloudfunctions.net/workout-model',
-      user['workout_preferences'],
+      user.data().workout_preferences,
       {
         headers: { 'Content-Type': 'application/json' }
       });
