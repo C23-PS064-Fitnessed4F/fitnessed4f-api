@@ -23,4 +23,4 @@ jobs:
 
       - id: deploy
         run: >
-          cd functions/model/workout && python3 -m pip install --upgrade pip && gcloud functions deploy workout-model --region=${{ vars.FUNCTION_REGION }} --source=. --trigger-http --runtime=python310 --allow-unauthenticated
+          cd functions/model/workout && gcloud functions deploy workout-model --region=${{ vars.FUNCTION_REGION }} --source=. --trigger-http --runtime=python310 --allow-unauthenticated
