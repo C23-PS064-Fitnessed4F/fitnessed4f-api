@@ -4,7 +4,9 @@ from flask import jsonify
 import tensorflow as tf
 import numpy as np
 import pandas as pd
+from os import environ
 
+environ['CUDA_VISIBLE_DEVICES'] = ''
 app = Flask(__name__)
 
 
