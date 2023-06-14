@@ -1,7 +1,7 @@
 import { getFirestore } from 'firebase-admin/firestore';
 import getUserId from "../util/getUserId.js";
 
-const update = async (req) => {
+const updateFoodPref = async (req) => {
   try {
     const userId = await getUserId(req);
 
@@ -9,19 +9,20 @@ const update = async (req) => {
     const db = getFirestore();
 
     const new_data = {
-      height: parseInt(req.body.height),
-      weight: parseInt(req.body.weight)
+      diet_type: parseInt(req.body.diet_type),
+      cuisine_type: parseInt(req.body.cuisine_type),
     }
 
     const docRef = db.collection('users').doc(userId);
-    await docRef.update(new_data).then(function() {
-        console.log("User's height and weight updated");
+    await docRef.update({
+      food_preferences: new_data
+    }).then(function() {
+      console.log("User's food preferences updated");
     });
     return [200, {
-        status: "User's height and weight updated",
-        new_height: new_data.height,
-        new_weight: new_data.weight
-      }]
+      status: "User's food preferences updated",
+      new_preferences: new_data
+    }]
   } catch (e) {
     console.error(e);
     return [400, {
@@ -31,4 +32,4 @@ const update = async (req) => {
 };
 
 
-export default update;
+export default updateFoodPref;
