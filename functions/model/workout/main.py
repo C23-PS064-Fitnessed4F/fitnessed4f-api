@@ -1,46 +1,43 @@
-from os import environ
-
 import tensorflow as tf
 import functions_framework
+import joblib
 import json
-
-from utils import *
-
-environ['CUDA_VISIBLE_DEVICES'] = ''
-environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
+import numpy as np
 
 
 @functions_framework.http
 def workout_model(request):
+
     if request.method == 'POST':
-        model = tf.keras.models.load_model('workout.h5')
+        model = tf.keras.models.load_model('model.h5')
+        encoders = joblib.load('encoders.joblib')
+        label_encoder = joblib.load('label_encoder.joblib')
+        x = ['Type', 'BodyPart', 'Equipment', 'Level']
+
         data = request.get_json()
 
-        type_pref = np.zeros(7)
-        type_pref[data['type_pref'] - 1] = 1
+        new_input = {
+            'Type': [data['type_pref']],
+            'BodyPart': [data['bodypart']],
+            'Equipment': [data['equipment']],
+            'Level': [data['train_level']]
+        }
 
-        train_level = np.zeros(3)
-        train_level[data['train_level'] - 1] = 1
-        temp = train_level[1]
-        train_level[1] = train_level[2]  # Input isn't sorted (Beginner, Advanced, Intermediate)
-        train_level[2] = temp
+        new_input_data = []
+        for feature in x:
+            encoder = encoders[feature]
+            encoding = encoder.transform(np.array(new_input[feature]).reshape(-1, 1))
+            new_input_data.append(encoding)
 
-        bodypart = np.zeros(17)
-        bodypart[data['bodypart'] - 1] = 1
+        new_x = np.concatenate(new_input_data, axis=1)
+        predictions = model.predict(new_x)
 
-        equipment = np.zeros(12)
-        equipment[data['equipment'] - 1] = 1
-
-        wo_input = np.concatenate((type_pref, bodypart, equipment, train_level))[np.newaxis, :]
-        res = model.predict(wo_input)
-
-        y = get_y()
-        y_df = get_y_df()
-
-        near = find_nearest(y, res)
-        index = np.where(y == near)
-        final = y_df.iloc[index]['Title'].item()
+        k = 5  # Output amount
+        if 'amount' in data:
+            k = data['amount']
+        top_k_classes = np.argsort(predictions, axis=1)[:, -k:]
+        predicted_labels = label_encoder.inverse_transform(top_k_classes[0])
 
         return json.dumps({
-            "result": final
+            "result": predicted_labels
         })
