@@ -8,11 +8,22 @@ const signup = async (req) => {
       password: req.body.password,
       returnSecureToken: true
     });
-    let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.API_KEY}`,
-      data,
-      {
-        headers: { 'Content-Type': 'application/json' }
-      });
+
+    let response = {}
+    try {
+      response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.API_KEY}`,
+        data,
+        {
+          headers: { 'Content-Type': 'application/json' }
+        });
+    } catch (e) {
+      // Check if email exists
+      if (Object.hasOwn(e.response.data, 'error')) {
+        return [400, {
+          error: e.response.data.error.message
+        }]
+      }
+    }
 
     // Connect to firestore
     const db = getFirestore();
@@ -31,10 +42,6 @@ const signup = async (req) => {
       food_preferences: {
         diet_type: 0,
         cuisine_type: 0,
-        protein: 0,
-        carbs: 0,
-        fat: 0,
-        calories: 0,
       }
     });
     return [200, {
