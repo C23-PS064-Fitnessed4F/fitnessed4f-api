@@ -1,32 +1,31 @@
 
 import functions_framework
 import json
-import dill
 import nltk
+import joblib
+from sklearn.metrics.pairwise import cosine_distances
 nltk.download('punkt')
 
 def convert_to_string(data):
     return f"{data['diet_type']} {data['cuisine_type']} {data['protein']} {data['carbs']} {data['fat']} {data['calories']}"
 
-def mainify(obj):
-    """If obj is not defined in __main__ then redefine it in 
-    main so that dill will serialize the definition along with the object"""
-    if obj.__module__ != "__main__":
-        import __main__
-        import inspect
-        s = inspect.getsource(obj)
-        co = compile(s, '<string>', 'exec')
-        exec(co, __main__.__dict__)
-
 @functions_framework.http
 def foodrec_model(request):
-  
+    
+    def recommend(metadata_input, topk=5):
+        encoder = joblib.load('encoder.joblib')
+        bank = joblib.load('bank.joblib')
+        menu_data = joblib.load('menu_data.joblib')
+        content=metadata_input
+        code =encoder.transform([content])
+        dist =cosine_distances(code, bank)
+        rec_idx=dist.argsort()[0, 1:(topk+1)]
+        return menu_data.loc[rec_idx]
+    
     if request.method == 'POST':
-        with open('foodrec_model.pkl','rb') as dill_file:
-            loaded_model = dill.load(dill_file)
         data = request.get_json()
         data_input = convert_to_string(data)
-        result = loaded_model.recommend(data_input)
+        result = recommend(data_input)
         json_result = result.to_json(orient ='records')
         parsed = json.loads(json_result)
 
