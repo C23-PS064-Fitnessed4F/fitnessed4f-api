@@ -8,29 +8,24 @@ const updateFoodPref = async (req) => {
     // Connect to firestore
     const db = getFirestore();
 
+    const new_data = {
+      diet_type: parseInt(req.body.diet_type),
+      cuisine_type: parseInt(req.body.cuisine_type),
+      protein: parseFloat(req.body.protein),
+      carbs: parseFloat(req.body.carbs),
+      fat: parseFloat(req.body.fat),
+      calories: parseFloat(req.body.calories),
+    }
+
     const docRef = db.collection('users').doc(userId);
     await docRef.update({
-      food_preferences: {
-        diet_type: req.body.diet_type,
-        cuisine_type: req.body.cuisine_type,
-        protein: req.body.protein,
-        carbs: req.body.carbs,
-        fat: req.body.fat,
-        calories: req.body.calories,
-      }
+      food_preferences: new_data
     }).then(function() {
       console.log("User's food preferences updated");
     });
     return [200, {
       status: "User's food preferences updated",
-      new_preferences: {
-        diet_type: req.body.diet_type,
-        cuisine_type: req.body.cuisine_type,
-        protein: req.body.protein,
-        carbs: req.body.carbs,
-        fat: req.body.fat,
-        calories: req.body.calories,
-      }
+      new_preferences: new_data
     }]
   } catch (e) {
     console.error(e);
