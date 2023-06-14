@@ -39,5 +39,5 @@ def workout_model(request):
         predicted_labels = label_encoder.inverse_transform(top_k_classes[0])
 
         return json.dumps({
-            "result": predicted_labels
+            "result": predicted_labels.tolist()
         })
