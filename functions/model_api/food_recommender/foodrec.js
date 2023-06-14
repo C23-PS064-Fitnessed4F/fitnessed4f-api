@@ -21,10 +21,10 @@ const foodrec = async (req) => {
     const food_req = {
         diet_type: decode_diet(food_pref['diet_type']),
         cuisine_type: decode_cuisine(food_pref['cuisine_type']),
-        protein: food_pref['protein'],
-        carbs: food_pref['carbs'],
-        fat: food_pref['fat'],
-        calories: food_pref['calories'],
+        protein: 200,
+        carbs: 200,
+        fat: 200,
+        calories: 200,
     }
     let response = await axios.post('https://asia-southeast2-fitnessed4f.cloudfunctions.net/food-model',
       food_req,

@@ -6,8 +6,9 @@ import signup from "./auth/signup.js";
 import login from "./auth/login.js";
 import fetch from "./fetch/fetch.js";
 import update from './preferences/updateHW.js';
-import updatePref from './preferences/updatePref.js';
+import updateWorkoutPref from "./preferences/updateWorkoutPref.js";
 import workout from "./model_api/workout/workout.js";
+import updateFoodPref from "./preferences/updateFoodPref.js";
 import foodrec from './model_api/food_recommender/foodrec.js';
 // Initialize express
 const app = express()
@@ -43,13 +44,18 @@ app.post('/update', async (req, res) => {
   res.status(r[0]).send(r[1]);
 })
 
-app.post('/update-pref', async (req, res) => {
-  const r = await updatePref(req)
+app.post('/update-workout', async (req, res) => {
+  const r = await updateWorkoutPref(req)
   res.status(r[0]).send(r[1]);
 })
 
 app.get('/workout', async (req, res) => {
   const r = await workout(req)
+  res.status(r[0]).send(r[1]);
+})
+
+app.post('/update-food', async (req, res) => {
+  const r = await updateFoodPref(req)
   res.status(r[0]).send(r[1]);
 })
 
