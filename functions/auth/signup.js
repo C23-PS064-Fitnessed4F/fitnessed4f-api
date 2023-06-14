@@ -14,6 +14,13 @@ const signup = async (req) => {
         headers: { 'Content-Type': 'application/json' }
       });
 
+    // Check if email exists
+    if (Object.hasOwn(response.data, 'error')) {
+      return [400, {
+        error: response.data.error.message
+      }]
+    }
+
     // Connect to firestore
     const db = getFirestore();
 
