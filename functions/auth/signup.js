@@ -9,24 +9,20 @@ const signup = async (req) => {
       returnSecureToken: true
     });
 
-    let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.API_KEY}`,
-      data,
-      {
-        headers: { 'Content-Type': 'application/json' }
-      }).catch(({ response }) => {
+    let response = {}
+    try {
+      response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.API_KEY}`,
+        data,
+        {
+          headers: { 'Content-Type': 'application/json' }
+        });
+    } catch (e) {
       // Check if email exists
-      if (Object.hasOwn(response.data, 'error')) {
+      if (Object.hasOwn(e.response.data, 'error')) {
         return [400, {
-          error: response.data.error.message
+          error: e.response.data.error.message
         }]
       }
-    });
-
-    // Check if email exists
-    if (Object.hasOwn(response.data, 'error')) {
-      return [400, {
-        error: response.data.error.message
-      }]
     }
 
     // Connect to firestore
