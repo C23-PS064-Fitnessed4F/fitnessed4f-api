@@ -9,6 +9,7 @@ import update from './preferences/updateHW.js';
 import updateWorkoutPref from "./preferences/updateWorkoutPref.js";
 import workout from "./model_api/workout/workout.js";
 import updateFoodPref from "./preferences/updateFoodPref.js";
+import foodrec from './model_api/food_recommender/foodrec.js';
 // Initialize express
 const app = express()
 const port = 3000
@@ -55,6 +56,11 @@ app.get('/workout', async (req, res) => {
 
 app.post('/update-food', async (req, res) => {
   const r = await updateFoodPref(req)
+  res.status(r[0]).send(r[1]);
+})
+
+app.post('/food-recommender', async (req, res) => {
+  const r = await foodrec(req)
   res.status(r[0]).send(r[1]);
 })
 
