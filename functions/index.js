@@ -8,6 +8,7 @@ import fetch from "./fetch/fetch.js";
 import update from './preferences/updateHW.js';
 import updatePref from './preferences/updatePref.js';
 import workout from "./model_api/workout/workout.js";
+import updateFoodPref from "./preferences/updateFoodPref.js";
 // Initialize express
 const app = express()
 const port = 3000
@@ -49,6 +50,11 @@ app.post('/update-pref', async (req, res) => {
 
 app.get('/workout', async (req, res) => {
   const r = await workout(req)
+  res.status(r[0]).send(r[1]);
+})
+
+app.post('/update-food', async (req, res) => {
+  const r = await updateFoodPref(req)
   res.status(r[0]).send(r[1]);
 })
 
