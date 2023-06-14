@@ -33,7 +33,7 @@ const foodrec = async (req) => {
       });
 
     return [200, {
-      result: response.data.result,
+      result: response.data.recipes,
     }]
   } catch (e) {
     console.error(e);
