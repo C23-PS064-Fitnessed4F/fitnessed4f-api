@@ -38,10 +38,6 @@ const signup = async (req) => {
       food_preferences: {
         diet_type: 0,
         cuisine_type: 0,
-        protein: 0,
-        carbs: 0,
-        fat: 0,
-        calories: 0,
       }
     });
     return [200, {

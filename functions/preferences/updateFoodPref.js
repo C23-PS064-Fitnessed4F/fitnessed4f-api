@@ -11,10 +11,6 @@ const updateFoodPref = async (req) => {
     const new_data = {
       diet_type: parseInt(req.body.diet_type),
       cuisine_type: parseInt(req.body.cuisine_type),
-      protein: parseFloat(req.body.protein),
-      carbs: parseFloat(req.body.carbs),
-      fat: parseFloat(req.body.fat),
-      calories: parseFloat(req.body.calories),
     }
 
     const docRef = db.collection('users').doc(userId);
