@@ -4,6 +4,9 @@ import getUserId from "../util/getUserId.js";
 const updateFoodPref = async (req) => {
   try {
     const userId = await getUserId(req);
+    if (Array.isArray(userId)) {
+      return userId;
+    }
 
     // Connect to firestore
     const db = getFirestore();

@@ -5,6 +5,9 @@ import { decode_diet, decode_cuisine } from "./foodrec_util.js";
 const foodrec = async (req) => {
   try {
     const userId = await getUserId(req);
+    if (Array.isArray(userId)) {
+      return userId;
+    }
 
     // Connect to firestore
     const db = getFirestore();

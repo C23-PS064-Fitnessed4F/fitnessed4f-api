@@ -6,6 +6,9 @@ import { decode_type_pref, decode_train_level, decode_bodypart, decode_equipment
 const workout = async (req) => {
   try {
     const userId = await getUserId(req);
+    if (Array.isArray(userId)) {
+      return userId;
+    }
 
     // Connect to firestore
     const db = getFirestore();
