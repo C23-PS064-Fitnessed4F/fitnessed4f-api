@@ -8,11 +8,19 @@ const login = async (req) => {
       password: req.body.password,
       returnSecureToken: true
     });
-    let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.API_KEY}`,
-      data,
-      {
-        headers: { 'Content-Type': 'application/json' }
-      });
+
+    let response = {}
+    try {
+      response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.API_KEY}`,
+        data,
+        {
+          headers: { 'Content-Type': 'application/json' }
+        });
+    } catch (e) {
+      return [e.response.data.error.code, {
+        error: e.response.data.error.message
+      }];
+    }
 
     // Connect to firestore
     const db = getFirestore();

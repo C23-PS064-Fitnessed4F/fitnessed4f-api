@@ -17,12 +17,9 @@ const signup = async (req) => {
           headers: { 'Content-Type': 'application/json' }
         });
     } catch (e) {
-      // Check if email exists
-      if (Object.hasOwn(e.response.data, 'error')) {
-        return [400, {
-          error: e.response.data.error.message
-        }]
-      }
+      return [e.response.data.error.code, {
+        error: e.response.data.error.message
+      }];
     }
 
     // Check if email exists
