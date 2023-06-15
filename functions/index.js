@@ -59,7 +59,7 @@ app.post('/update-food', async (req, res) => {
   res.status(r[0]).send(r[1]);
 })
 
-app.post('/food-recommender', async (req, res) => {
+app.get('/food-recommender', async (req, res) => {
   const r = await foodrec(req)
   res.status(r[0]).send(r[1]);
 })
